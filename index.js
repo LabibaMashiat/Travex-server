@@ -43,6 +43,24 @@ async function run(){
         const serviceDetails=await cursor;
         res.send(serviceDetails);
     });
+    // app.get('/reviews',async(req,res)=>{
+    //  let query={};
+    //  if(req.query.email){
+    //     query={reviewer:req.query.email}
+    //  }
+    //  const cursor=reviewsCollection.find(query);
+    //  const myReviews=await cursor.toArray();
+    //  res.send(myReviews)
+    // });
+    app.get('/reviews/:id',async(req,res)=>{
+        const id=req.params.id;
+        const query={service:id};
+        const cursor=reviewsCollection.find(query);
+        const reviewDetails=await cursor.toArray();
+        res.send(reviewDetails);
+    });
+
+
 
     app.post('/reviews',async(req,res)=>{
         const review=req.body;
