@@ -21,6 +21,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run(){
     try{
       const serviceCollection = client.db('traveX').collection('services');
+      const reviewsCollection=client.db('traveX').collection('reviews');
 
       app.get('/services',async(req,res)=>{
         const query={}
@@ -41,6 +42,13 @@ async function run(){
         const cursor=serviceCollection.findOne(query);
         const serviceDetails=await cursor;
         res.send(serviceDetails);
+    });
+
+    app.post('/reviews',async(req,res)=>{
+        const review=req.body;
+        const result=await reviewsCollection.insertOne(review);
+        res.send(result);
+
     })
 
     }
